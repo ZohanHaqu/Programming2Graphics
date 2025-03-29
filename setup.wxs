@@ -1,0 +1,97 @@
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="FD99CEAD-1602-4A60-9518-4F900F03927D" UpgradeCode="4F5FD7E1-6F51-4AC6-9F79-D583F78B954A" Version="1.0.0.0" Language="1033" Name="Prog2Graph Programming Language" Manufacturer="Zohan Haque">
+    <Package InstallerVersion="405" InstallScope="perMachine" InstallPrivileges="elevated" Compressed="yes" Manufacturer="Zohan Haque" />
+    <Media EmbedCab="yes" Cabinet="media1.cab" Id="1" />
+    <Icon Id="MyIcon" SourceFile="Icon.ico" />
+    <WixVariable Id="WixUILicenseRtf" Value="..\..\MIT License.rtf" />
+    <WixVariable Id="WixUIDialogBmp" Value="Wizard.bmp" />
+    <WixVariable Id="WixUIBannerBmp" Value="Header.png" />
+    <Property Id="ARPPRODUCTICON" Value="MyIcon" />
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="MenuAppFolder" Name="TheAppName" />
+      </Directory>
+      <Directory Id="DesktopFolder" Name="Desktop" />
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="MyAppFolder" Name="Prog2Graph" />
+      </Directory>
+    </Directory>
+    <ComponentGroup Id="RemoveFolders">
+      <ComponentRef Id="Remove.MenuAppFolder" />
+      <ComponentRef Id="Remove.ProgramFilesFolder" />
+    </ComponentGroup>
+    <ComponentGroup Id="ProgGraph">
+      <ComponentRef Id="CIdFE0BF25E" />
+      <ComponentRef Id="CIdF735A7F9" />
+      <ComponentRef Id="CId11FB0ECD" />
+      <ComponentRef Id="CIdA337B420" />
+      <ComponentRef Id="CId65C855F3" />
+      <ComponentRef Id="CId18F5FD14" />
+      <ComponentRef Id="CIdE199AADB" />
+    </ComponentGroup>
+    <Feature Id="ProductFeature" Title="Main" Description="Main package">
+      <ComponentGroupRef Id="RemoveFolders" />
+      <ComponentGroupRef Id="ProgGraph" />
+      <!-- Add missing components to the Feature -->
+      <ComponentRef Id="CSCId77F8F354" /> <!-- Start Menu Shortcut -->
+      <ComponentRef Id="CSCIdB986E7F2" /> <!-- Desktop Shortcut -->
+    </Feature>
+    <UIRef Id="WixUI_FeatureTree" />
+    <DirectoryRef Id="ProgramFilesFolder">
+      <Component Id="Remove.ProgramFilesFolder" Guid="4EE5D4C2-21AD-49D9-B723-C9A71492886B">
+        <RemoveFolder Id="ProgramFilesFolder" On="uninstall" />
+        <RegistryValue Root="HKMU" Key="Software\[Manufacturer]\[ProductName]" Type="string" Value="" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="MyAppFolder">
+      <Component Id="CIdE199AADB" Guid="1D46F21C-8547-4A73-B250-92600E3B6419" Win64="no">
+        <File Id="FIdE06276F7" Name="header.png" Source="C:\Users\zohan\Downloads\turtle\dist\" />
+        <CreateFolder />
+      </Component>
+      <Component Id="CId18F5FD14" Guid="8C88D44D-1B65-48B2-9427-7D0E71724E23" Win64="no">
+        <File Id="FIdBFE6DDB7" Name="wizard.bmp" Source="C:\Users\zohan\Downloads\turtle\dist\" />
+        <CreateFolder />
+      </Component>
+      <Component Id="CId65C855F3" Guid="AE81E64E-70E9-4DD5-B99F-FAF2D8372E9F" Win64="no">
+        <File Id="FIdB1832FE8" Name="setup.wxs" Source="C:\Users\zohan\Downloads\turtle\dist\" />
+        <CreateFolder />
+      </Component>
+      <Component Id="CIdA337B420" Guid="91BF01F5-CE12-4A39-A8C2-B43631BEAE91" Win64="no">
+        <File Id="FId46B989FC" Name="prog2graph.exe" Source="C:\Users\zohan\Downloads\turtle\dist\" />
+        <CreateFolder />
+      </Component>
+      <Component Id="CId11FB0ECD" Guid="F4A43852-D2D3-412D-8157-A5D0B7718045" Win64="no">
+        <File Id="FId2FA66773" Name="prog2graph.spec" Source="C:\Users\zohan\Downloads\turtle\dist\" />
+        <CreateFolder />
+      </Component>
+      <Component Id="CIdF735A7F9" Guid="25E324A6-00C3-4590-93A0-8BA47BB4445D" Win64="no">
+        <File Id="FId0D349FC0" Name="prog2graph.py" Source="C:\Users\zohan\Downloads\turtle\dist\" />
+        <CreateFolder />
+      </Component>
+      <Component Id="CIdFE0BF25E" Guid="98C5D355-32DE-47A4-84CE-6705800DA41B" Win64="no">
+        <File Id="FId4E9B151F" Name="icon.ico" Source="C:\Users\zohan\Downloads\turtle\dist\" />
+        <CreateFolder />
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="ProgramMenuFolder">
+      <Component Id="CSCId77F8F354" Guid="D6C458CA-A686-4004-9514-BBDCE0A890B0">
+        <Shortcut Id="SId3B01225E" Name="Programming 2 Graphics" Target="[!FId46B989FC]" WorkingDirectory="MyAppFolder" Icon="MyIcon" />
+        <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+        <RemoveFolder Id="CSCId77F8F354" Directory="ProgramMenuFolder" On="uninstall" />
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="MenuAppFolder">
+      <Component Id="Remove.MenuAppFolder" Guid="7D3C8AD2-4472-460A-B163-782FAC54220A">
+        <RemoveFolder Id="MenuAppFolder" On="uninstall" />
+        <RegistryValue Root="HKMU" Key="Software\[Manufacturer]\[ProductName]" Type="string" Value="" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="DesktopFolder">
+      <Component Id="CSCIdB986E7F2" Guid="55F9F72F-DD5E-4D2A-832C-886A1A0137F7">
+        <Shortcut Id="SId7DC16AEF" Name="Programming 2 Graphics" Description="make graphics by programming" Target="[!FId46B989FC]" WorkingDirectory="MyAppFolder" Icon="MyIcon" />
+        <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+        <RemoveFolder Id="CSCIdB986E7F2" Directory="DesktopFolder" On="uninstall" />
+      </Component>
+    </DirectoryRef>
+  </Product>
+</Wix>
