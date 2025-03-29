@@ -61,3 +61,12 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+
+###############################################################################
+# Custom programming language: Programming 2 Graphics Language
+#
+# Define diff and merge strategy for .ptg files.
+###############################################################################
+*.ptg diff=ptg
+*.ptg merge=binary
+
